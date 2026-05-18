@@ -16,7 +16,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-
+        float zSpeed = 5 * Time.deitaTime;
+        Transform.Translate(0, 0, zSpeed)
     }
 
     public void OnMove(InputValue value)
