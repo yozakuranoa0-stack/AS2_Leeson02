@@ -22,6 +22,12 @@ public class Player : MonoBehaviour
     private Vector3 lookAngles;     // 向きベクトル（値）
     private float gyroAngle;        // ジャイロ回転（値）
 
+    //バリアの設定
+    [Header("* * * バリアの設定")]
+    public GameObject barrire;           // バリアオブジェクトの参照
+    public MeshRenderer barrireRenderer; // バリアのマテリアル参照
+    public bool barrireActivation;       // バリアのフラグ
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -130,5 +136,21 @@ public class Player : MonoBehaviour
 
         // 5秒後に弾丸を破壊する
         Destroy(bullet, 5f);
+    }
+
+    void OnTriggerEnter(Collider collision)
+    {
+        //バリアアイテムの衝突
+        if(collision.transform. tag. Equals("Item/Barrire"))
+        {
+            // バリアのマテリアルを取得
+            Material m = barrireRenderer.material;
+
+            // バリアをアクティブにする
+            barrireActivation = true;
+
+            // 見た目の表示
+            m.SetInt("_IsActive", 1);
+        }
     }
 }
