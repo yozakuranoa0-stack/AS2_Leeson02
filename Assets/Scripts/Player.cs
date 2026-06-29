@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,6 +28,10 @@ public class Player : MonoBehaviour
     public GameObject barrire;           // バリアオブジェクトの参照
     public MeshRenderer barrireRenderer; // バリアのマテリアル参照
     public bool barrireActivation;       // バリアのフラグ
+
+    [UnitHeaderInspectable("* * * エフェクトの設定")]
+    public ParticleSystem muzzleFlash;
+    public 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -128,6 +133,8 @@ public class Player : MonoBehaviour
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         rb.AddForce(bullet.transform.forward * 25, ForceMode.Impulse);
 
+        // ===
+
         // 効果音を再生する
         if(nShotSe != null)
         {
@@ -136,6 +143,21 @@ public class Player : MonoBehaviour
 
         // 5秒後に弾丸を破壊する
         Destroy(bullet, 5f);
+    }
+
+    // === フラッシュ生成メソッド === //
+
+    public void MuzzleFlash()
+    {
+        try
+        {
+            ParticleSystem = Instantiate(muzzleFlash, shotPoint.transform.position.);
+            ParticleSystem. Initialize();
+        }
+        catch(System. Exception e)
+        {
+            Debug.LogError($"エフェクトの生成に失敗しました。{e}");
+        }
     }
 
     void OnTriggerEnter(Collider collision)
